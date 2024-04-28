@@ -18,5 +18,20 @@ while (condition) {
     ]);
     todos.push(addTask.todo);
     condition = addTask.addMore;
-    console.log(todos);
+    console.log("Your current Tasks:", todos);
 }
+let deleteTask = await inquirer.prompt([
+    {
+        name: "delete",
+        message: `Enter the index of the task you want to delete 0-${todos.length}`,
+        type: "number",
+        validate: (input) => {
+            if (isNaN(input) || input < 0 || input >= todos.length) {
+                return "Please enter valid index.";
+            }
+            return true;
+        }
+    }
+]);
+todos.splice(deleteTask.delete, 1);
+console.log("Your updated task", todos);
