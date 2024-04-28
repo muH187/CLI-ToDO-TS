@@ -23,7 +23,7 @@ while (condition) {
 let deleteTask = await inquirer.prompt([
     {
         name: "delete",
-        message: `Enter the index of the task you want to delete 0-${todos.length}`,
+        message: `Enter the index of the task you want to delete 0-${todos.length - 1}`,
         type: "number",
         validate: (input) => {
             if (isNaN(input) || input < 0 || input >= todos.length) {
