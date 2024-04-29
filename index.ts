@@ -26,21 +26,37 @@ while(condition) {
     console.log("Your current Tasks:", todos)
 }
 
-let deleteTask = await inquirer.prompt(
+let userExit = await inquirer.prompt(
     [
         {
-            name: "delete",
-            message: `Enter the index of the task you want to delete 0-${todos.length - 1}`,
-            type: "number",
-            validate: (input: any) => {
-                if(isNaN(input) || input < 0 || input >= todos.length) {
-                    return "Please enter valid index."
-                }
-                return true
-            }
+            name: "exit",
+            message: "Do you want to exit or delete an item? ",
+            type: "list",
+            choices: ["Exit", "Delete"]
         }
     ]
 )
 
-todos.splice(deleteTask.delete, 1)
-console.log("Your updated task", todos)
+if(userExit.exit == "Delete") {
+    let deleteTask = await inquirer.prompt(
+        [
+            {
+                name: "delete",
+                message: `Enter the index of the task you want to delete 0-${todos.length - 1}`,
+                type: "number",
+                validate: (input: any) => {
+                    if(isNaN(input) || input < 0 || input >= todos.length) {
+                        return "Please enter valid index."
+                    }
+                    return true
+                }
+            }
+        ]
+    )
+    
+    todos.splice(deleteTask.delete, 1)
+    console.log("Your updated task", todos)
+} else if (userExit.exit == "Exit") {
+    console.log("Your current Tasks:", todos)
+}
+
